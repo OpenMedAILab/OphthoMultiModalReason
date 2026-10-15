@@ -1,0 +1,6 @@
+Part A
+A synthetic adult case with painless blurred vision in the left eye. This file contains no patient data.
+
+Part B
+【Main Diagnosis】: Synthetic retinal condition
+【Secondary Diagnoses】: None

@@ -1,0 +1,7 @@
+{
+  "judge_runs": {
+    "qwen": [["qwen_full", "qwen3.8-max"]],
+    "claude": [["claude_full", "anthropic_claude-sonnet-5.5"]],
+    "deepseek_text": [["deepseek_text_full", "deepseek-v4-pro"]]
+  }
+}

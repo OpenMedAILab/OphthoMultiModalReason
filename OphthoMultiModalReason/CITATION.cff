@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the accompanying manuscript."
+title: "OphthoMultiModalReason"
+type: software
+authors:
+  - family-names: Song
+    given-names: Yelei
+  - family-names: She
+    given-names: Xinping
+  - family-names: Zhao
+    given-names: Kaikai
+  - family-names: Jin
+    given-names: Kai
+repository-code: "https://github.com/OpenMedAILab/OphthoMultiModalReason"
+date-released: 2026-10-15
+license: "LicenseRef-Pending-Author-Selection"

@@ -1,0 +1,30 @@
+{
+  "primary_multimodal_evaluators": [
+    {
+      "name": "Qwen3.8-Max",
+      "model_id": "qwen3.8-max",
+      "provider": "Alibaba Cloud Model Studio token plan",
+      "temperature": 0,
+      "thinking": false,
+      "image_detail": "high",
+      "max_completion_tokens": 800
+    },
+    {
+      "name": "Claude Sonnet 5.5",
+      "model_id": "anthropic/claude-sonnet-5.5",
+      "provider": "OpenRouter",
+      "temperature": 0,
+      "reasoning_effort": "medium",
+      "image_detail": "high",
+      "max_completion_tokens": 800
+    }
+  ],
+  "text_only_sensitivity_evaluator": {
+    "name": "DeepSeek-V4-Pro",
+    "model_id": "deepseek-v4-pro",
+    "provider": "Alibaba Cloud Model Studio token plan",
+    "temperature": 0,
+    "thinking": false,
+    "max_completion_tokens": 800
+  }
+}
