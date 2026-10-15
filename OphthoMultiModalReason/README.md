@@ -1,28 +1,78 @@
 # OphthoMultiModalReason
 
-Reproduction code for an open-ended multimodal benchmark of clinical reasoning
-by large language models in ophthalmology. The repository implements the two
-fixed diagnostic prompt packages, blinded same-rubric independent evaluation,
-full-cohort statistical analysis, and the public-source sensitivity analysis
-reported in the revised manuscript.
+**An open-ended multimodal benchmark of clinical reasoning in ophthalmology.**
 
-## Public-release boundary
+How do large language models combine clinical information and ophthalmic images,
+and how closely do independent AI evaluators agree with ophthalmologists?
+OphthoMultiModalReason compares three diagnostic models under two fixed prompt
+packages, using specialist ratings and independent evaluation with the same
+three-domain rubric.
 
-This repository contains code, configuration metadata, schemas, tests, and a
-fully synthetic example only. It intentionally excludes clinical images,
-clinical vignettes, ground-truth diagnoses, individual clinician ratings,
-model outputs, evaluator rationales, manuscripts, reviewer files, and API
-credentials. Authorized users can place their own equivalent inputs under
-`data/` using the schemas in [`docs/data_schema.md`](docs/data_schema.md).
+| Benchmark | Diagnostic models | Prompt packages | Model responses |
+| :---: | :---: | :---: | :---: |
+| 74 cases · 348 images | GPT-5.2 · Gemini 2.5 Pro · Grok 4 | Direct answer · Structured explanation | 444 |
 
-## Evaluated and evaluating models
+[Study overview](#study-overview) · [Results](#results-at-a-glance) ·
+[Quick start](#installation) · [Reproduction](#reproduction-workflow) ·
+[Data availability](#data-availability) · [Citation](#citation)
 
-Diagnostic responses were generated with GPT-5.2, Gemini 2.5 Pro, and Grok 4
-under direct-answer and structured-explanation prompt packages. The final
-independent-evaluator panel comprised Qwen3.8-Max and Claude Sonnet 5.5 as
-multimodal evaluators and DeepSeek-V4-Pro as a text-only sensitivity evaluator.
-Exact evaluator roles and decoding settings are recorded in
+## Study overview
+
+![Figure 1. Benchmark workflow: multimodal cases, three diagnostic models, two ophthalmologists, independent same-rubric evaluators, and sensitivity analyses.](assets/figures/Figure1_revised_workflow.png)
+
+*Figure 1 from the revised manuscript. The benchmark includes 51 public Chinese
+educational cases and 23 contributed Ukrainian clinical cases. Each case is
+assessed by three models under both prompt packages.*
+
+Two ophthalmologists provide the human reference using **Diagnostic Accuracy**,
+**Data Integration and Key Information Recognition**, and **Clinical Logic**,
+each scored from 1 to 3. Qwen3.8-Max and Claude Sonnet 5.5 independently apply
+the same rubric with clinical text and images. DeepSeek-V4-Pro provides a
+separate **text-only sensitivity analysis**.
+
+Evaluator roles and decoding settings are recorded in
 [`configs/final_evaluator_panel.json`](configs/final_evaluator_panel.json).
+
+## Results at a glance
+
+### Performance across prompt packages
+
+![Figure 3. Mean total scores for three diagnostic models under direct-answer and structured-explanation prompts, assessed by ophthalmologists and three independent AI evaluators.](assets/figures/Figure3_prompt_package_scores.png)
+
+*Figure 3 from the revised manuscript. Mean three-domain total scores are shown
+for each model and prompt package; the maximum total score is 9. DeepSeek
+received text only.*
+
+GPT-5.2 ranked first, followed by Gemini 2.5 Pro and Grok 4, under human
+consensus and all three AI evaluators when scores were pooled across prompt
+packages. For GPT-5.2, the structured-explanation package yielded higher total
+scores under human consensus and both primary multimodal evaluators. Effects
+for the other models depended on the evaluator.
+
+### Agreement with ophthalmologists
+
+![Figure 4. Domain-level agreement with ophthalmologists, correlations between AI evaluators, and pooled model rankings.](assets/figures/Figure4_agreement_and_ranking.png)
+
+*Figure 4 from the revised manuscript. Panels show agreement with human
+consensus, agreement between AI evaluators, and mean total-score rankings.*
+
+Qwen and Claude had total-score Spearman correlations of **0.701** and
+**0.680** with human consensus. Agreement was stronger for Diagnostic Accuracy
+and weaker for Clinical Logic, supporting AI evaluation as a robustness
+analysis alongside specialist assessment.
+
+These comparisons concern two fixed prompt packages, which differ in requested
+structure and explanation. Human review was not fully masked to model and
+prompt condition; the results do not establish an isolated causal effect of
+reasoning.
+
+## What this repository provides
+
+- Diagnostic response generation with the two fixed prompt templates.
+- Blinded independent evaluation using the same rubric as the ophthalmologists.
+- Full-cohort model rankings, agreement metrics, and paired prompt comparisons.
+- Source-stratified and public-source sensitivity analyses.
+- Figure and analysis-workbook generation, input schemas, and offline tests.
 
 ## Installation
 
@@ -137,7 +187,7 @@ signals; it is not a test of proprietary training-set membership.
 
 ## Repository map
 
-- `scripts/generate_responses.py`: exact fixed prompt packages and diagnostic
+- `scripts/generate_responses.py`: fixed prompt templates and diagnostic
   response generation.
 - `scripts/rescore_same_rubric.py`: task freezing, validation, dry-run, and
   independent evaluator execution.
@@ -148,17 +198,27 @@ signals; it is not a test of proprietary training-set membership.
   reliability figures plus a local analysis workbook.
 - `analysis/analysis_common.py`, `analysis/agreement_metrics.py`: reusable
   statistics and agreement functions.
+- `assets/figures/`: aggregate manuscript Figures 1, 3, and 4 used on this page.
 - `tests/`: offline unit and smoke tests.
 - `examples/`: synthetic, non-clinical fixture.
 
 ## Data availability
+
+This repository distributes code, configuration metadata, schemas, tests, a
+synthetic example, and the aggregate manuscript figures displayed above.
+Clinical images, clinical vignettes, reference diagnoses, individual clinician
+ratings, model responses, evaluator rationales, manuscripts, reviewer files,
+and API credentials are excluded.
+
+Authorized users can place their own equivalent inputs under `data/` using
+[`docs/data_schema.md`](docs/data_schema.md).
 
 No clinical or clinician-level data are distributed in this code package.
 Availability of de-identified study data remains subject to institutional
 approval, data-use agreements, consent, copyright, and privacy restrictions.
 Public Chinese educational case images and source text are also not
 redistributed; source copyright remains with the original publishers. The
-release contains code and synthetic fixtures only, not source media.
+release includes aggregate figures, but does not redistribute case source media.
 
 ## License
 
